@@ -1,15 +1,16 @@
 <html>
 <head>
     <title>Validator</title>
+    <meta name="decorator" content="atl.admin">
 </head>
 <body>
-<form id="validator">
-    <div>
-        <label for="number">Positive integer</label>
-        <input type="text" id="number" name="number">
+<form id="validator" class="aui">
+    <div class="field-group">
+        <label for="number">Please, enter a positive integer number: </label>
+        <input type="text" id="number" name="number" class="text">
     </div>
-    <div>
-        <input type="submit" value="Save">
+    <div class="field-group">
+        <input type="submit" value="Submit" class="button">
     </div>
 </form>
 </body>
