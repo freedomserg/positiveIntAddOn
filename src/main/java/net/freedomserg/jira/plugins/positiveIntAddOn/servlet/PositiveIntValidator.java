@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PositiveIntValidator extends HttpServlet{
 
@@ -31,30 +33,34 @@ public class PositiveIntValidator extends HttpServlet{
     }
 
     @Override
-    protected void doGet(
-            HttpServletRequest request,
-            HttpServletResponse response
-                                        ) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response
+                                                                ) throws ServletException, IOException {
         String username = userManager.getRemoteUsername(request);
-        if (username == null || !userManager.isSystemAdmin(username))
-        {
+        if (username == null || !userManager.isSystemAdmin(username)) {
             redirectToLogin(request, response);
             return;
         }
+        response.setContentType("text/html;charset=utf-8");
         templateRenderer.render("/view/validator.vm", response.getWriter());
     }
 
-    private void redirectToLogin(
-            HttpServletRequest request,
-            HttpServletResponse response
-                                        ) throws IOException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response
+                                                                ) throws ServletException, IOException {
+        String userInput = request.getParameter("number");
+        final Map<String, Object> context = new HashMap<String, Object>();
+        context.put("response", userInput);
+        response.setContentType("text/html;charset=utf-8");
+        templateRenderer.render("/view/validator.vm", context, response.getWriter());
+    }
+
+    private void redirectToLogin(HttpServletRequest request, HttpServletResponse response
+                                                                ) throws IOException {
         response.sendRedirect(loginUriProvider.getLoginUri(getUri(request)).toASCIIString());
     }
     private URI getUri(HttpServletRequest request) {
         StringBuffer builder = request.getRequestURL();
-        if (request.getQueryString() != null)
-        {
+        if (request.getQueryString() != null) {
             builder.append("?");
             builder.append(request.getQueryString());
         }
