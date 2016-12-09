@@ -1,0 +1,2 @@
+JIRA add-on which allows a user to enter a positive integer in a custom field.
+If one enters something else - a validation error to be showed.
