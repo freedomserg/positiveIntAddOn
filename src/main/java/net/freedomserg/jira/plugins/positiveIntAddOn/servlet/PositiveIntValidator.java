@@ -65,18 +65,8 @@ public class PositiveIntValidator extends HttpServlet {
         return result <= 0 ? INVALID_INPUT_RESPONSE : VALID_INPUT_RESPONSE;
     }
 
-    public void redirectToLogin(HttpServletRequest request, HttpServletResponse response
-    ) throws IOException {
-        response.sendRedirect(loginUriProvider.getLoginUri(getUri(request)).toASCIIString());
+    public void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        URI uri = URI.create(request.getRequestURL().toString());
+        response.sendRedirect(loginUriProvider.getLoginUri(uri).toASCIIString());
     }
-
-    public URI getUri(HttpServletRequest request) {
-        StringBuffer builder = request.getRequestURL();
-        if (request.getQueryString() != null) {
-            builder.append("?");
-            builder.append(request.getQueryString());
-        }
-        return URI.create(builder.toString());
-    }
-
 }
