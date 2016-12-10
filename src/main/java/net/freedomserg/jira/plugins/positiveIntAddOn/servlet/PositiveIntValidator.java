@@ -55,7 +55,7 @@ public class PositiveIntValidator extends HttpServlet {
         templateRenderer.render("/view/validator-post.vm", context, response.getWriter());
     }
 
-    private String validate(String userInput) {
+    public String validate(String userInput) {
         int result = 0;
         try {
             result = Integer.parseInt(userInput);
@@ -65,12 +65,12 @@ public class PositiveIntValidator extends HttpServlet {
         return result <= 0 ? INVALID_INPUT_RESPONSE : VALID_INPUT_RESPONSE;
     }
 
-    private void redirectToLogin(HttpServletRequest request, HttpServletResponse response
+    public void redirectToLogin(HttpServletRequest request, HttpServletResponse response
     ) throws IOException {
         response.sendRedirect(loginUriProvider.getLoginUri(getUri(request)).toASCIIString());
     }
 
-    private URI getUri(HttpServletRequest request) {
+    public URI getUri(HttpServletRequest request) {
         StringBuffer builder = request.getRequestURL();
         if (request.getQueryString() != null) {
             builder.append("?");
