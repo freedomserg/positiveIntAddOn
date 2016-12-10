@@ -2,6 +2,7 @@ package net.freedomserg.jira.plugins.positiveIntAddOn.servlet;
 
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
+import com.atlassian.sal.api.user.UserProfile;
 import com.atlassian.templaterenderer.TemplateRenderer;
 
 import javax.servlet.*;
@@ -13,7 +14,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PositiveIntValidator extends HttpServlet{
+public class PositiveIntValidator extends HttpServlet {
 
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
@@ -33,19 +34,19 @@ public class PositiveIntValidator extends HttpServlet{
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response
-                                                                ) throws ServletException, IOException {
-        String username = userManager.getRemoteUsername(request);
-        if (username == null || !userManager.isSystemAdmin(username)) {
+                                                                    ) throws ServletException, IOException {
+        UserProfile userProfile = userManager.getRemoteUser(request);
+        if (userProfile != null) {
+            response.setContentType("text/html;charset=utf-8");
+            templateRenderer.render("/view/validator-get.vm", response.getWriter());
+        } else {
             redirectToLogin(request, response);
-            return;
         }
-        response.setContentType("text/html;charset=utf-8");
-        templateRenderer.render("/view/validator-get.vm", response.getWriter());
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response
-                                                                ) throws ServletException, IOException {
+                                                                    ) throws ServletException, IOException {
         String userInput = request.getParameter("number");
         final Map<String, Object> context = new HashMap<String, Object>();
         String userResponse = validate(userInput);
@@ -58,16 +59,17 @@ public class PositiveIntValidator extends HttpServlet{
         int result = 0;
         try {
             result = Integer.parseInt(userInput);
-        }catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             return INVALID_INPUT_RESPONSE;
         }
         return result <= 0 ? INVALID_INPUT_RESPONSE : VALID_INPUT_RESPONSE;
     }
 
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response
-                                                                ) throws IOException {
+    ) throws IOException {
         response.sendRedirect(loginUriProvider.getLoginUri(getUri(request)).toASCIIString());
     }
+
     private URI getUri(HttpServletRequest request) {
         StringBuffer builder = request.getRequestURL();
         if (request.getQueryString() != null) {
