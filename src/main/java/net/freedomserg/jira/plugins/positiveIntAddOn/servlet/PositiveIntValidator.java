@@ -19,8 +19,8 @@ public class PositiveIntValidator extends HttpServlet {
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer templateRenderer;
-    private final static String INVALID_INPUT_RESPONSE = "Sorry, invalid input";
-    private final static String VALID_INPUT_RESPONSE = "Good work";
+    public final static String INVALID_INPUT_RESPONSE = "Sorry, invalid input";
+    public final static String VALID_INPUT_RESPONSE = "Good work";
 
     public PositiveIntValidator(
             UserManager userManager,
