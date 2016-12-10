@@ -18,7 +18,7 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class PositiveIntValidatorTest {
+public class PositiveIntValidatorUnitTest {
 
     UserManager mockUserManager;
     UserProfile mockUserProfile;
