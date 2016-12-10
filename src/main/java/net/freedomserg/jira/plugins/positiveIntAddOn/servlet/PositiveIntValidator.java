@@ -3,8 +3,6 @@ package net.freedomserg.jira.plugins.positiveIntAddOn.servlet;
 import com.atlassian.sal.api.auth.LoginUriProvider;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +15,6 @@ import java.util.Map;
 
 public class PositiveIntValidator extends HttpServlet{
 
-    private static final Logger log = LoggerFactory.getLogger(PositiveIntValidator.class);
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer templateRenderer;
