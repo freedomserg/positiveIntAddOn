@@ -114,6 +114,15 @@
     </dependencies>
     <build>
         <plugins>
+            <!--maven-compiler-plugin-->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.plugin.source.version}</source>
+                    <target>${maven.compiler.plugin.target.version}</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-jira-plugin</artifactId>
@@ -172,6 +181,9 @@
         </plugins>
     </build>
     <properties>
+        <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.source.version>1.8</maven.compiler.plugin.source.version>
+        <maven.compiler.plugin.target.version>1.8</maven.compiler.plugin.target.version>
         <javax.inject.version>1</javax.inject.version>
         <jira.version>7.2.6</jira.version>
         <amps.version>6.2.6</amps.version>
