@@ -32,7 +32,7 @@ public class PositiveIntValidator extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response
+    public void doGet(HttpServletRequest request, HttpServletResponse response
                                                                 ) throws ServletException, IOException {
         String username = userManager.getRemoteUsername(request);
         if (username == null || !userManager.isSystemAdmin(username)) {
@@ -44,7 +44,7 @@ public class PositiveIntValidator extends HttpServlet{
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response
+    public void doPost(HttpServletRequest request, HttpServletResponse response
                                                                 ) throws ServletException, IOException {
         String userInput = request.getParameter("number");
         final Map<String, Object> context = new HashMap<String, Object>();
