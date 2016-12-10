@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Validator</title>
+        <meta name="decorator" content="atl.admin">
+    </head>
+    <body>
+        <p class="title">Please, enter positive integer: </p>
+        <form id="validator" class="aui" method="POST">
+            <div class="field-group">
+                <label for="number">Value: </label>
+                <input type="text" id="number" name="number" class="text">
+            </div>
+            <div class="field-group">
+                <input type="submit" value="Submit" class="button">
+            </div>
+        </form>
+        <p class="title">$response</p>
+    </body>
+</html>

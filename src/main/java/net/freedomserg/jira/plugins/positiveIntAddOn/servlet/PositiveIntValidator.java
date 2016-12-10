@@ -21,6 +21,8 @@ public class PositiveIntValidator extends HttpServlet{
     private final UserManager userManager;
     private final LoginUriProvider loginUriProvider;
     private final TemplateRenderer templateRenderer;
+    private final static String INVALID_INPUT_RESPONSE = "Sorry, invalid input";
+    private final static String VALID_INPUT_RESPONSE = "Good work";
 
     public PositiveIntValidator(
             UserManager userManager,
@@ -41,7 +43,7 @@ public class PositiveIntValidator extends HttpServlet{
             return;
         }
         response.setContentType("text/html;charset=utf-8");
-        templateRenderer.render("/view/validator.vm", response.getWriter());
+        templateRenderer.render("/view/validator-get.vm", response.getWriter());
     }
 
     @Override
@@ -49,9 +51,20 @@ public class PositiveIntValidator extends HttpServlet{
                                                                 ) throws ServletException, IOException {
         String userInput = request.getParameter("number");
         final Map<String, Object> context = new HashMap<String, Object>();
-        context.put("response", userInput);
+        String userResponse = validate(userInput);
+        context.put("response", userResponse);
         response.setContentType("text/html;charset=utf-8");
-        templateRenderer.render("/view/validator.vm", context, response.getWriter());
+        templateRenderer.render("/view/validator-post.vm", context, response.getWriter());
+    }
+
+    private String validate(String userInput) {
+        int result = 0;
+        try {
+            result = Integer.parseInt(userInput);
+        }catch (NumberFormatException ex) {
+            return INVALID_INPUT_RESPONSE;
+        }
+        return result <= 0 ? INVALID_INPUT_RESPONSE : VALID_INPUT_RESPONSE;
     }
 
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response
