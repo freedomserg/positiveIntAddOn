@@ -14,7 +14,7 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 
 
-public class PositiveIntValidatorFuncTest {
+public class PositiveIntValidatorIntegrationTest {
 
     HttpClient httpClient;
     String baseUrl;

@@ -20,13 +20,13 @@ import static org.mockito.Mockito.*;
 
 public class PositiveIntValidatorUnitTest {
 
-    UserManager mockUserManager;
-    UserProfile mockUserProfile;
-    LoginUriProvider mockLoginUriProvider;
-    TemplateRenderer mockTemplateRenderer;
-    PositiveIntValidator spyValidator;
-    HttpServletRequest mockRequest;
-    HttpServletResponse mockResponse;
+    private UserManager mockUserManager;
+    private UserProfile mockUserProfile;
+    private LoginUriProvider mockLoginUriProvider;
+    private TemplateRenderer mockTemplateRenderer;
+    private PositiveIntValidator spyValidator;
+    private HttpServletRequest mockRequest;
+    private HttpServletResponse mockResponse;
 
     @Before
     public void setup() {
@@ -41,7 +41,7 @@ public class PositiveIntValidatorUnitTest {
     }
 
     @Test
-    public void testDoGetValidUserProfile() throws IOException, ServletException {
+    public void testDoGetWithLoggedUser() throws IOException, ServletException {
         when(mockUserManager.getRemoteUser(mockRequest)).thenReturn(mockUserProfile);
 
         spyValidator.doGet(mockRequest, mockResponse);
@@ -54,7 +54,7 @@ public class PositiveIntValidatorUnitTest {
     }
 
     @Test
-    public void testDoGetInvalidUserProfile() throws ServletException, IOException {
+    public void testDoGetWithNotLoggedUser() throws ServletException, IOException {
         when(mockUserManager.getRemoteUser(mockRequest)).thenReturn(null);
         doNothing().when(spyValidator).redirectToLogin(mockRequest, mockResponse);
 
